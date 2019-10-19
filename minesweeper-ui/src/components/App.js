@@ -7,13 +7,14 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      width: 3,
-      height: 3,
+      width: 10,
+      height: 10,
       mines: 3,
       game: {}
     };
     this.onNewClick = this.onNewClick.bind(this);
     this.onCellClick = this.onCellClick.bind(this);
+    this.onCellFlag = this.onCellFlag.bind(this);
   }
 
   render() {
@@ -25,6 +26,7 @@ class App extends React.Component {
       <Minesweeper
           game={this.state.game}
           onCellClick={this.onCellClick}
+          onCellFlag={this.onCellFlag}
       />
     </div>;
   }
@@ -41,7 +43,15 @@ class App extends React.Component {
     MinesweeperApi.check(this.state.game.id, x, y)
         .then(data => this.setState({
           game: data
-        }));  }
+        }));
+  }
+
+  onCellFlag(x, y) {
+    MinesweeperApi.flag(this.state.game.id, x, y)
+        .then(data => this.setState({
+          game: data
+        }));
+  }
 
 }
 

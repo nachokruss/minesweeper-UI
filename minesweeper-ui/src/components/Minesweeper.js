@@ -5,7 +5,6 @@ class Minesweeper extends React.Component {
     render() {
         const game = this.props.game;
         return <div>
-            <h2>Minesweeper</h2>
             <h3>Game Status: {game.status}</h3>
             <div
                 style={{
@@ -20,8 +19,9 @@ class Minesweeper extends React.Component {
                             }}
                         >
                             {rows.map((cell, y) =>
-                                <div onClick={() => this.props.onCellClick(x, y)}
-                                    key={`${x}x${y}`}
+                                <div
+                                    onClick={() => this.props.onCellClick(x, y)}
+                                    onContextMenu={(e)=> {e.preventDefault(); this.props.onCellFlag(x, y)}}
                                     style={{
                                         display: 'table-cell',
                                         border: 'solid 1px',
@@ -31,8 +31,9 @@ class Minesweeper extends React.Component {
                                     }}
                                 >
                                     {cell.exploded && 'Boom!'}
-                                    {!cell.exploded && cell.revealed && `${cell.value}`}
+                                    {!cell.exploded && cell.revealed && cell.value > 0 && `${cell.value}`}
                                     {!cell.exploded && game.status === 'ended' && cell.has_mine && 'Mine'}
+                                    {cell.flagged && 'Flag'}
                                 </div>
                             )}
                         </div>
