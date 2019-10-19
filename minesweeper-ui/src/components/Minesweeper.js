@@ -25,9 +25,10 @@ class Minesweeper extends React.Component {
                                     style={{
                                         display: 'table-cell',
                                         border: 'solid 1px',
-                                        width: '80px',
-                                        height: '80px',
+                                        width: '50px',
+                                        height: '50px',
                                         backgroundColor: `${!cell.revealed ? 'lightgray' : ''}`,
+                                        verticalAlign: 'middle',
                                     }}
                                 >
                                     {cell.exploded && 'Boom!'}
