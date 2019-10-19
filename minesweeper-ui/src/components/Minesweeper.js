@@ -15,7 +15,8 @@ class Minesweeper extends React.Component {
                 {game.board && game.board.map((rows, x) =>
                         <div key={`row-${x}`}
                             style={{
-                                display: 'table-row'
+                                display: 'table-row',
+                                textAlign: 'center',
                             }}
                         >
                             {rows.map((cell, y) =>
@@ -24,9 +25,14 @@ class Minesweeper extends React.Component {
                                     style={{
                                         display: 'table-cell',
                                         border: 'solid 1px',
+                                        width: '80px',
+                                        height: '80px',
+                                        backgroundColor: `${!cell.revealed ? 'lightgray' : ''}`,
                                     }}
                                 >
-                                    {`${x}x${y}: revealed: ${cell.revealed}`}
+                                    {cell.exploded && 'Boom!'}
+                                    {!cell.exploded && cell.revealed && `${cell.value}`}
+                                    {!cell.exploded && game.status === 'ended' && cell.has_mine && 'Mine'}
                                 </div>
                             )}
                         </div>

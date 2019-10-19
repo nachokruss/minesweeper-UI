@@ -12,6 +12,16 @@ MinesweeperApi.fetchGame = (gameId) => {
 
 };
 
+
+MinesweeperApi.check = (gameId, x, y) => {
+
+    const url = `${API_URL}/${gameId}/check/${x}/${y}`;
+
+    return fetch(url)
+        .then(data => data.json());
+
+};
+
 MinesweeperApi.newGame = (width = 3, height = 3, mines = 3) => {
 
     const url = `${API_URL}`;
@@ -29,6 +39,7 @@ MinesweeperApi.newGame = (width = 3, height = 3, mines = 3) => {
             })
         })
         .then(data => data.json());
+
 
 };
 

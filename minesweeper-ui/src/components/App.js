@@ -7,6 +7,9 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      width: 3,
+      height: 3,
+      mines: 3,
       game: {}
     };
     this.onNewClick = this.onNewClick.bind(this);
@@ -27,15 +30,18 @@ class App extends React.Component {
   }
 
   onNewClick() {
-    MinesweeperApi.newGame()
+    const state = this.state;
+    MinesweeperApi.newGame(state.width, state.height, state.mines)
         .then(data => this.setState({
           game: data
         }));
   }
 
   onCellClick(x, y) {
-    console.log(`on cell click ${x}x${y}!`);
-  }
+    MinesweeperApi.check(this.state.game.id, x, y)
+        .then(data => this.setState({
+          game: data
+        }));  }
 
 }
 
