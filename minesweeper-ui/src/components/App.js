@@ -51,34 +51,43 @@ class App extends React.Component {
     </div>;
   }
 
+  handleError(serverErrorMsg) {
+    const errorMsg = serverErrorMsg  ? serverErrorMsg : 'Unexpected Server error, please contact customer service';
+    alert(errorMsg);
+  }
+
   onNewClick() {
     const state = this.state;
     MinesweeperApi.newGame(state.rows, state.cols, state.mines)
         .then(data => this.setState({
           game: data,
           gameId: data.id,
-        }));
+        }))
+        .catch(this.handleError);
   }
 
   onCellClick(x, y) {
     MinesweeperApi.check(this.state.game.id, x, y)
         .then(data => this.setState({
           game: data
-        }));
+        }))
+        .catch(this.handleError);
   }
 
   onCellFlag(x, y) {
     MinesweeperApi.flag(this.state.game.id, x, y)
         .then(data => this.setState({
           game: data
-        }));
+        }))
+        .catch(this.handleError);
   }
 
   onFetchClick() {
     MinesweeperApi.fetchGame(this.state.gameId)
         .then(data => this.setState({
           game: data
-        }));
+        }))
+        .catch(this.handleError);
   }
 
 }

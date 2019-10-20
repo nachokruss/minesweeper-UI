@@ -3,6 +3,18 @@ const API_URL = 'http://localhost:8080/game';
 
 const MinesweeperApi = {};
 
+const checkErrorResponse = (response) => {
+    if (!response.ok) {
+        return response.json()
+            .then((json) => {
+                const { message } = json;
+                throw new Error(message);
+            });
+    } else {
+        return response.json();
+    }
+};
+
 MinesweeperApi.fetchGame = (gameId) => {
 
     const url = `${API_URL}/${gameId}`;
@@ -31,7 +43,7 @@ MinesweeperApi.flag = (gameId, x, y) => {
 
 };
 
-MinesweeperApi.newGame = (width = 3, height = 3, mines = 3) => {
+MinesweeperApi.newGame = (rows = 3, cols = 3, mines = 3) => {
 
     const url = `${API_URL}`;
 
@@ -42,12 +54,12 @@ MinesweeperApi.newGame = (width = 3, height = 3, mines = 3) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                width,
-                height,
+                rows,
+                cols,
                 mines,
             })
         })
-        .then(data => data.json());
+        .then(checkErrorResponse);
 
 
 };
