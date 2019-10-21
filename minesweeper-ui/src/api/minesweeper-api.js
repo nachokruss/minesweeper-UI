@@ -20,7 +20,7 @@ MinesweeperApi.fetchGame = (gameId) => {
     const url = `${API_URL}/${gameId}`;
 
     return fetch(url)
-        .then(data => data.json());
+        .then(checkErrorResponse);
 
 };
 
@@ -30,7 +30,7 @@ MinesweeperApi.check = (gameId, x, y) => {
     const url = `${API_URL}/${gameId}/check/${x}/${y}`;
 
     return fetch(url)
-        .then(data => data.json());
+        .then(checkErrorResponse);
 
 };
 
@@ -39,7 +39,7 @@ MinesweeperApi.flag = (gameId, x, y) => {
     const url = `${API_URL}/${gameId}/flag/${x}/${y}`;
 
     return fetch(url)
-        .then(data => data.json());
+        .then(checkErrorResponse);
 
 };
 
